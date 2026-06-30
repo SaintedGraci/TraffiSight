@@ -1,0 +1,34 @@
+# TraffiSight - Phase 3 Requirements Only
+# Minimal installation without AI models (for Phase 3)
+
+# Computer Vision
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# Image Processing
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Video Processing
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.9
+
+# HTTP Client (for Phase 10)
+requests>=2.31.0
+
+# Configuration
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+
+# Logging
+colorlog>=6.7.0
+
+# Progress Bars
+tqdm>=4.65.0
+
+# Utilities
+python-dateutil>=2.8.0
+
+# Testing (Optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0

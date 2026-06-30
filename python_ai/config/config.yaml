@@ -1,0 +1,145 @@
+# TraffiSight AI Configuration
+
+# Application Settings
+app:
+  name: "TraffiSight AI"
+  version: "1.0.0"
+  environment: "development"
+
+# Paths Configuration
+paths:
+  # Laravel Integration
+  laravel_storage: "../storage/app/public"
+  videos_dir: "../storage/app/public/videos"
+  output_dir: "./output"
+  logs_dir: "./logs"
+  models_dir: "./models"
+  temp_dir: "./temp"
+
+# Video Processing Settings
+video:
+  # Frame Extraction
+  frame_extraction:
+    skip_frames: 1  # Extract every N frames (1 = all frames, 2 = every other frame)
+    max_frames: 0   # Maximum frames to extract (0 = no limit)
+    save_frames: false  # Save extracted frames to disk
+  
+  # Supported formats
+  supported_formats:
+    - "mp4"
+    - "avi"
+    - "mov"
+    - "mkv"
+    - "flv"
+    - "wmv"
+
+# Image Processing Settings
+image:
+  # Resize settings
+  max_width: 1920
+  max_height: 1080
+  maintain_aspect_ratio: true
+  
+  # Quality settings
+  jpeg_quality: 95
+  png_compression: 6
+
+# Detection Settings (Phase 4+)
+detection:
+  # YOLOv8 Model
+  model_name: "yolov8n.pt"  # n=nano, s=small, m=medium, l=large, x=xlarge
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  
+  # Vehicle Classes (COCO dataset)
+  vehicle_classes:
+    - 2  # car
+    - 3  # motorcycle
+    - 5  # bus
+    - 7  # truck
+
+# Tracking Settings (Phase 5)
+tracking:
+  max_age: 30  # Maximum frames to keep track of lost objects
+  min_hits: 3  # Minimum consecutive detections before confirming object
+  iou_threshold: 0.3
+
+# License Plate Recognition Settings (Phase 6)
+plate_recognition:
+  # Detection settings
+  enabled: true
+  min_plate_width: 60
+  min_plate_height: 20
+  max_plate_width: 400
+  max_plate_height: 200
+  aspect_ratio_min: 1.5
+  aspect_ratio_max: 5.0
+  
+  # OCR settings
+  ocr_engine: "easyocr"  # easyocr or tesseract
+  languages: ["en"]
+  confidence_threshold: 0.6
+  use_gpu: false  # Set to true if you have GPU
+  
+  # Text validation
+  validate_format: true
+  allowed_patterns:
+    - "^[A-Z]{3}[0-9]{4}$"  # ABC1234
+    - "^[A-Z]{3}-[0-9]{4}$"  # ABC-1234
+    - "^[A-Z]{2}[0-9]{2}[A-Z]{3}$"  # AB12CDE
+  
+  # Processing
+  blur_plates: false  # Privacy mode - blur plates in output
+  save_plate_images: true
+  cache_results: true
+  enhance_image: true  # Pre-process plates for better OCR
+  
+# Lane Detection Settings (Phase 7)
+lane_detection:
+  canny_low: 50
+  canny_high: 150
+  hough_threshold: 100
+  min_line_length: 50
+  max_line_gap: 10
+
+# Traffic Light Detection Settings (Phase 8)
+traffic_light:
+  # HSV color ranges for detection
+  red_lower: [0, 100, 100]
+  red_upper: [10, 255, 255]
+  yellow_lower: [20, 100, 100]
+  yellow_upper: [30, 255, 255]
+  green_lower: [40, 50, 50]
+  green_upper: [80, 255, 255]
+
+# Violation Detection Settings (Phase 9)
+violation:
+  # Stop line violation
+  stop_line_buffer: 10  # pixels
+  
+  # Speed calculation (requires calibration)
+  fps_default: 30
+  pixel_to_meter_ratio: 0.05  # Will be calibrated per video
+
+# API Integration (Phase 10)
+api:
+  base_url: "http://localhost:8000"
+  endpoint: "/api/analysis/results"
+  timeout: 30
+  retry_attempts: 3
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file_enabled: true
+  console_enabled: true
+  max_file_size_mb: 10
+  backup_count: 5
+
+# Performance Settings
+performance:
+  use_gpu: true  # Use GPU acceleration if available
+  num_threads: 4  # Number of threads for CPU operations
+  batch_size: 32  # Batch size for model inference
+  memory_limit_gb: 4  # Maximum memory usage

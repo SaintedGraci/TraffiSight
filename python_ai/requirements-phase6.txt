@@ -1,0 +1,16 @@
+# Phase 6: License Plate Recognition Dependencies
+
+# OCR Engine
+easyocr>=1.7.0
+
+# Image Enhancement
+scikit-image>=0.22.0
+imutils>=0.5.4
+
+# Already required (from Phase 3-4)
+# opencv-python>=4.9.0
+# numpy>=1.26.0
+# torch>=2.0.0
+
+# Installation:
+# pip install -r requirements-phase6.txt

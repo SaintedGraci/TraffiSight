@@ -1,0 +1,18 @@
+# TraffiSight - Phase 4 Requirements
+# Vehicle Detection with YOLOv8
+
+# All Phase 3 requirements
+-r requirements-phase3.txt
+
+# Deep Learning Framework
+# Note: For GPU support, install PyTorch separately:
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+torch>=2.0.0
+torchvision>=0.15.0
+
+# YOLOv8 Object Detection
+ultralytics>=8.0.0
+
+# Additional utilities for AI
+scipy>=1.10.0
+matplotlib>=3.7.0
